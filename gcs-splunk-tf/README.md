@@ -1,6 +1,6 @@
 # Google Cloud Storage to Splunk Terraform Automation
 ### Summary
-TODO
+* TODO
 
 ### Prerequisites
 * Install [terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
@@ -12,11 +12,14 @@ TODO
 * `cd gcs-splunk-tf`
 * `terraform init`
 * `terraform apply`
-	* Provide your GCP Project ID when prompted
-	* Type `yes` when prompted
+	* Provide requested variables when prompted
+	* Type `yes` to confirm creation of resources
 
 ### Cleanup
 * `terraform destroy`
-	* Provide your GCP Project ID when prompted
-	* Type `yes` when prompted
+	* Provide requested variables when prompted
+	* Type `yes` to confirm deletion of resources
 	* See Troubleshooting section below
+
+### Troubleshooting
+* TODO

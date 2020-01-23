@@ -32,7 +32,7 @@ resource "google_storage_bucket_object" "retry-splunk-code-object" {
 
 resource "google_cloudfunctions_function" "retry-splunk-function" {
   name = "retry-splunk"
-  event_trigger = {
+  event_trigger {
     event_type = "providers/cloud.pubsub/eventTypes/topic.publish"
     resource = google_pubsub_topic.retry-splunk-topic.name
   }

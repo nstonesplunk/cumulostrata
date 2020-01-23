@@ -2,6 +2,18 @@ variable "project_id" {
   type = string
 }
 
+variable "hec_token" {
+  type = string
+}
+
+variable "hec_url" {
+  type = string
+}
+
+variable "logging_filter" {
+  type = string
+}
+
 provider "google" {
   project = var.project_id
   region  = "us-central1"
@@ -21,7 +33,7 @@ resource "google_pubsub_topic" "stackdriver-logs-topic" {
 resource "google_logging_project_sink" "audited-resource-logs-pubsub-sink" {
   name = "audited-resource-logs-pubsub"
   destination = "pubsub.googleapis.com/projects/${data.google_project.project.project_id}/topics/${google_pubsub_topic.stackdriver-logs-topic.name}"
-  filter = "logName:\"/logs/cloudaudit.googleapis.com\" OR resource.type:gce OR resource.type=gcs_bucket OR resource.type=bigquery_resourc"
+  filter = var.logging_filter
   unique_writer_identity = true
 }
 
@@ -53,7 +65,7 @@ resource "google_storage_bucket_object" "pubsub-splunk-code-object" {
 
 resource "google_cloudfunctions_function" "pubsub-splunk-function" {
   name = "pubsub-splunk"
-  event_trigger = {
+  event_trigger {
     event_type = "providers/cloud.pubsub/eventTypes/topic.publish"
     resource = google_pubsub_topic.stackdriver-logs-topic.name
   }
@@ -63,8 +75,8 @@ resource "google_cloudfunctions_function" "pubsub-splunk-function" {
   source_archive_bucket = google_storage_bucket.pubsub-splunk-code-bucket.name
   source_archive_object = google_storage_bucket_object.pubsub-splunk-code-object.name
   environment_variables = {
-    HEC_URL = "asdf"
-    HEC_TOKEN = "asdf"
+    HEC_URL = var.hec_url
+    HEC_TOKEN = var.hec_token
     PROJECTID = var.project_id
     RETRY_TOPIC = google_pubsub_topic.retry-splunk-topic.name
   }

@@ -2,6 +2,18 @@ variable "project_id" {
   type = string
 }
 
+variable "hec_token" {
+  type = string
+}
+
+variable "hec_url" {
+  type = string
+}
+
+variable "gcs_bucket" {
+  type = string
+}
+
 provider "google" {
   project = var.project_id
   region  = "us-central1"
@@ -32,7 +44,7 @@ resource "google_cloudfunctions_function" "gcs-splunk-function" {
   name = "gcs-splunk"
   event_trigger {
     event_type = "providers/cloud.storage/eventTypes/object.change"
-    resource = "splunkfunctiontest"
+    resource = var.gcs_bucket
   }
   entry_point = "hello_gcs"
   runtime = "python37"
@@ -40,8 +52,8 @@ resource "google_cloudfunctions_function" "gcs-splunk-function" {
   source_archive_bucket = google_storage_bucket.gcs-splunk-code-bucket.name
   source_archive_object = google_storage_bucket_object.gcs-splunk-code-object.name
   environment_variables = {
-    HEC_URL = "asdf"
-    HEC_TOKEN = "asdf"
+    HEC_URL = var.hec_url
+    HEC_TOKEN = var.hec_token
     PROJECTID = var.project_id
     RETRY_TOPIC = google_pubsub_topic.retry-splunk-topic.name
   }

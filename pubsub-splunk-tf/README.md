@@ -9,14 +9,19 @@ TODO
 	* `export GOOGLE_CLOUD_KEYFILE_JSON={PATH TO SERVICE ACCOUNT JSON KEY FILE}`
 
 ### Deployment
+* NOTE: There is currently a bug in the cloud function code when deployed using terraform.
+	* Any occurence of `context.resource.get("name")` or `context.resource["name"]` should be replaced with `context.resource` for this deployment to work. (This can be done manually in the cloud function post terraform deployment)
 * `cd pubsub-splunk-tf`
 * `terraform init`
 * `terraform apply`
-	* Provide your GCP Project ID when prompted
-	* Type `yes` when prompted
+	* Provide requested variables when prompted
+	* Type `yes` to confirm creation of resources
 
 ### Cleanup
 * `terraform destroy`
-	* Provide your GCP Project ID when prompted
-	* Type `yes` when prompted
+	* Provide requested variables when prompted
+	* Type `yes` to confirm deletion of resources
 	* See Troubleshooting section below
+
+### Troubleshooting
+* TODO

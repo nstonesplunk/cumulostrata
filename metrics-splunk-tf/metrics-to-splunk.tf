@@ -2,6 +2,18 @@ variable "project_id" {
   type = string
 }
 
+variable "hec_token" {
+  type = string
+}
+
+variable "hec_url" {
+  type = string
+}
+
+variable "metrics_list" {
+  type = string
+}
+
 provider "google" {
   project = var.project_id
   region  = "us-central1"
@@ -51,10 +63,10 @@ resource "google_cloudfunctions_function" "metrics-splunk-function" {
   source_archive_bucket = google_storage_bucket.metrics-splunk-code-bucket.name
   source_archive_object = google_storage_bucket_object.metrics-splunk-code-object.name
   environment_variables = {
-    HEC_URL = "asdf"
-    HEC_TOKEN = "asdf"
+    HEC_URL = var.hec_url
+    HEC_TOKEN = var.hec_token
     PROJECTID = var.project_id
-    METRICS_LIST	= "[\"compute.googleapis.com/instance/cpu/utilization\",\"compute.googleapis.com/instance/disk/read_ops_count\",\"compute.googleapis.com/instance/disk/read_bytes_count\",\"compute.googleapis.com/instance/disk/write_bytes_count\",\"compute.googleapis.com/instance/disk/write_ops_count\",\"compute.googleapis.com/instance/network/received_bytes_count\",\"compute.googleapis.com/instance/network/received_packets_count\",\"compute.googleapis.com/instance/network/sent_bytes_count\",\"compute.googleapis.com/instance/network/sent_packets_count\",\"compute.googleapis.com/instance/uptime\",\"compute.googleapis.com/firewall/dropped_bytes_count\",\"compute.googleapis.com/firewall/dropped_packets_count\"]"
+    METRICS_LIST	= var.metrics_list
     TIME_INTERVAL	= "5"
     RETRY_TOPIC = google_pubsub_topic.retry-splunk-topic.name
   }
