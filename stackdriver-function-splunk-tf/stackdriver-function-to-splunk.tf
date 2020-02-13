@@ -14,10 +14,18 @@ variable "logging_filter" {
   type = string
 }
 
+variable "region" {
+  type = string
+}
+
+variable "zone" {
+  type = string
+}
+
 provider "google" {
   project = var.project_id
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  region  = var.region
+  zone    = var.zone
 }
 
 data "google_project" "project" {}
@@ -53,28 +61,29 @@ resource "google_project_iam_binding" "pubsub-log-viewer" {
   ]
 }
 
-resource "google_storage_bucket" "pubsub-splunk-code-bucket" {
- 	name = "pubsub-splunk-code"
+resource "google_storage_bucket" "stackdriver-function-splunk-code-bucket" {
+ 	name = "stackdriver-function-splunk-code"
 }
 
-resource "google_storage_bucket_object" "pubsub-splunk-code-object" {
-  name = "pubsub-splunk.zip"
-  bucket = google_storage_bucket.pubsub-splunk-code-bucket.name
-  source = "./pubsub-splunk-code/pubsub-splunk.zip"
+resource "google_storage_bucket_object" "stackdriver-function-splunk-code-object" {
+  name = "stackdriver-function-splunk.zip"
+  bucket = google_storage_bucket.stackdriver-function-splunk-code-bucket.name
+  source = "./stackdriver-function-splunk-code/stackdriver-function-splunk.zip"
 }
 
-resource "google_cloudfunctions_function" "pubsub-splunk-function" {
-  name = "pubsub-splunk"
+resource "google_cloudfunctions_function" "stackdriver-function-splunk-function" {
+  name = "stackdriver-function-splunk"
   event_trigger {
-    event_type = "providers/cloud.pubsub/eventTypes/topic.publish"
+    event_type = "google.pubsub.topic.publish"
     resource = google_pubsub_topic.stackdriver-logs-topic.name
   }
   entry_point = "hello_pubsub"
   runtime = "python37"
-  service_account_email = google_service_account.pubsub-splunk-sa.email
-  source_archive_bucket = google_storage_bucket.pubsub-splunk-code-bucket.name
-  source_archive_object = google_storage_bucket_object.pubsub-splunk-code-object.name
+  service_account_email = google_service_account.stackdriver-function-splunk-sa.email
+  source_archive_bucket = google_storage_bucket.stackdriver-function-splunk-code-bucket.name
+  source_archive_object = google_storage_bucket_object.stackdriver-function-splunk-code-object.name
   environment_variables = {
+    SPLUNK_SOURCE = google_pubsub_topic.stackdriver-logs-topic.name
     HEC_URL = var.hec_url
     HEC_TOKEN = var.hec_token
     PROJECTID = var.project_id
@@ -82,7 +91,7 @@ resource "google_cloudfunctions_function" "pubsub-splunk-function" {
   }
 }
 
-resource "google_service_account" "pubsub-splunk-sa" {
-  account_id   = "pubsub-splunk"
-  display_name = "Service Account used by the pubsub-snapshot Cloud Function"
+resource "google_service_account" "stackdriver-function-splunk-sa" {
+  account_id   = "stackdriver-function-splunk"
+  display_name = "Service Account used by the stackdriver-function-snapshot Cloud Function"
 }

@@ -1,4 +1,4 @@
-# Google Cloud Pub Sub to Splunk Terraform Automation
+# Google Stackdriver to Splunk (through Cloud Functions) Terraform Automation
 ### Summary
 TODO
 
@@ -9,12 +9,11 @@ TODO
 	* `export GOOGLE_CLOUD_KEYFILE_JSON={PATH TO SERVICE ACCOUNT JSON KEY FILE}`
 
 ### Deployment
-* NOTE: There is currently a bug in the cloud function code when deployed using terraform.
-	* Any occurence of `context.resource.get("name")` or `context.resource["name"]` should be replaced with `context.resource` for this deployment to work. (This can be done manually in the cloud function post terraform deployment)
-* `cd pubsub-splunk-tf`
+* `cd stackddriver-function-splunk-tf`
 * `terraform init`
 * `terraform apply`
 	* Provide requested variables when prompted
+		* Note: hec_url format is http(s)://{HOSTNAME}:{PORT} (Ex. https://127.0.0.1:8088)
 	* Type `yes` to confirm creation of resources
 
 ### Cleanup

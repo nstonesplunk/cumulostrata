@@ -2,10 +2,18 @@ variable "project_id" {
   type = string
 }
 
+variable "region" {
+  type = string
+}
+
+variable "zone" {
+  type = string
+}
+
 provider "google" {
   project = var.project_id
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  region  = var.region
+  zone    = var.zone
 }
 
 data "google_project" "project" {}

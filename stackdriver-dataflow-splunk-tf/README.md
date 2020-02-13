@@ -1,4 +1,4 @@
-# Google Cloud Pub Sub to Splunk Terraform Automation
+# Google Cloud Stackdriver to Splunk (through Dataflow) Terraform Automation
 ### Summary
 TODO
 
@@ -11,7 +11,8 @@ TODO
 ### Deployment
 * NOTE: There is currently a bug in the cloud function code when deployed using terraform.
 	* Any occurence of `context.resource.get("name")` or `context.resource["name"]` should be replaced with `context.resource` for this deployment to work. (This can be done manually in the cloud function post terraform deployment)
-* `cd pubsub-splunk-tf`
+* `cd stackdriver-dataflow
+-splunk-tf`
 * `terraform init`
 * `terraform apply`
 	* Provide requested variables when prompted

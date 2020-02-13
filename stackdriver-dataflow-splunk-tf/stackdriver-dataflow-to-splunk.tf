@@ -14,10 +14,20 @@ variable "logging_filter" {
   type = string
 }
 
+variable "region" {
+  type = string
+}
+
+variable "zone" {
+  type = string
+}
+
+resource "random_uuid" "dataflow_name" {}
+
 provider "google" {
   project = var.project_id
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  region  = var.region
+  zone    = var.zone
 }
 
 data "google_project" "project" {}
@@ -71,7 +81,7 @@ resource "google_storage_bucket_object" "dataflow-splunk-job-temp-object" {
 }
 
 resource "google_dataflow_job" "splunk-dataflow-job" {
-  name = "splunk-dataflow-streamin"
+  name = "splunk-dataflow-streaming-${random_uuid.dataflow_name.result}"
   template_gcs_path = "gs://dataflow-templates/latest/Cloud_PubSub_to_Splunk"
   temp_gcs_location = join("", ["gs://", "${google_storage_bucket.dataflow-splunk-job-temp-bucket.name}", "/tmp"])
   parameters = {
