@@ -13,6 +13,7 @@
 * `terraform init`
 * `terraform apply`
 	* Provide requested variables when prompted
+		* Note: hec_url format is http(s)://{HOSTNAME}:{PORT} (Ex. https://127.0.0.1:8088)
 	* Type `yes` to confirm creation of resources
 
 ### Cleanup
