@@ -1,6 +1,6 @@
 # Google Cloud Stackdriver to Splunk (through Dataflow) Terraform Automation
 ### Summary
-TODO
+This template will create a logging export to Cloud PubSub based on a user provided Stackdriver Logging filter. The template also deploys a streaming Dataflow template that sends events from the Cloud PubSub sink topic to Splunk using the HTTP Event Collector method.
 
 ### Prerequisites
 * Install [terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
@@ -24,4 +24,4 @@ TODO
 	* See Troubleshooting section below
 
 ### Troubleshooting
-* TODO
+* In Progress

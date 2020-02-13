@@ -1,6 +1,6 @@
 # Stackdriver Metrics to Splunk Terraform Automation
 ### Summary
-TODO
+This template will send Stackdriver Metrics to Splunk using the HTTP Event Collector (HEC) method. Which metrics are sent are determined by a provided list of Stackdriver metrics on template deployment. This template has a configurable trigger time and the default sending interval is every 5 minutes.
 
 ### Prerequisites
 * Install [terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
@@ -23,4 +23,4 @@ TODO
 	* See Troubleshooting section below
 
 ### Troubleshooting
-* TODO
+* In Progress

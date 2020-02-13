@@ -1,6 +1,6 @@
 # Retry to Splunk Terraform Automation
 ### Summary
-TODO
+This template deploys a Cloud Function and a triggering PubSub topic for other Cloud Functions/etc. to use for retrying failed events. The Cloud Function in this template will send events to Splunk using the HTTP Event Collector (HEC) method.
 
 ### Prerequisites
 * Install [terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
@@ -23,4 +23,4 @@ TODO
 	* See Troubleshooting section below
 
 ### Troubleshooting
-* TODO
+* In Progress

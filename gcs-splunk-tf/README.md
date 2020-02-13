@@ -1,6 +1,6 @@
 # Google Cloud Storage to Splunk Terraform Automation
 ### Summary
-* TODO
+* This template sends the contents of a GCS bucket to Splunk using the HTTP Event Collector (HEC) method. The user provides a GCS bucket on template deployment which will trigger a Cloud Function to send bucket changes to Splunk.
 
 ### Prerequisites
 * Install [terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
@@ -23,4 +23,4 @@
 	* See Troubleshooting section below
 
 ### Troubleshooting
-* TODO
+* In Progress
