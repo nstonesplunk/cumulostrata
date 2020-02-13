@@ -9,8 +9,7 @@ This template will create a logging export to Cloud PubSub based on a user provi
 	* `export GOOGLE_CLOUD_KEYFILE_JSON={PATH TO SERVICE ACCOUNT JSON KEY FILE}`
 
 ### Deployment
-* `cd stackdriver-dataflow
--splunk-tf`
+* `cd stackdriver-dataflow-splunk-tf`
 * `terraform init`
 * `terraform apply`
 	* Provide requested variables when prompted
