@@ -1,4 +1,4 @@
-<img src="README-static-assets/cumulostrata_logo.png" width="450">
+<img src="README-static-assets/cumulostrata-logo.png" width="450">
 ## Google Cloud to Splunk Terraform Automation
 This project contains automation for sending data from GCP to Splunk. It will configure all parts of a data collection pipeline (Pub/Sub topics, schedulers, IAM service accounts, etc.) for GCS, Stackdriver Logging, and Stackdriver Metrics. 
 
