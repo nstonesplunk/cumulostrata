@@ -13,7 +13,7 @@ This template will create a logging export to Cloud PubSub based on a user provi
 * `terraform init`
 * `terraform apply`
 	* Provide requested variables when prompted
-		* Note: hec_url format is {HOSTNAME}:{PORT} (Ex. 127.0.0.1:8088)
+		* Note: hec_url format is `{HOSTNAME}:{PORT}` (Ex. `127.0.0.1:8088`)
 	* Type `yes` to confirm creation of resources
 
 ### Cleanup
